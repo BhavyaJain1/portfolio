@@ -1,0 +1,208 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Light theme (optional toggle) */
+    --background: 220 40% 98%;
+    --foreground: 232 45% 9%;
+    --card: 0 0% 100%;
+    --card-foreground: 232 45% 9%;
+    --muted: 220 20% 94%;
+    --muted-foreground: 232 12% 38%;
+    --primary: 199 92% 42%;
+    --primary-foreground: 0 0% 100%;
+    --accent: 265 85% 55%;
+    --accent-foreground: 0 0% 100%;
+    --border: 232 18% 86%;
+    --input: 232 18% 86%;
+    --ring: 199 92% 48%;
+
+    --glow-cyan: 190 95% 50%;
+    --glow-violet: 265 90% 62%;
+
+    --glass-bg: 0 0% 100% / 0.7;
+    --glass-border: 232 20% 80% / 0.6;
+
+    --radius: 1rem;
+  }
+
+  .dark {
+    /* Dark theme — the default */
+    --background: 233 47% 4%;
+    --foreground: 210 40% 96%;
+    --card: 233 38% 8%;
+    --card-foreground: 210 40% 96%;
+    --muted: 233 28% 14%;
+    --muted-foreground: 220 16% 68%;
+    --primary: 190 95% 55%;
+    --primary-foreground: 233 47% 5%;
+    --accent: 265 90% 66%;
+    --accent-foreground: 233 47% 5%;
+    --border: 232 30% 18%;
+    --input: 232 30% 18%;
+    --ring: 190 95% 55%;
+
+    --glow-cyan: 190 95% 55%;
+    --glow-violet: 265 90% 66%;
+
+    --glass-bg: 233 40% 10% / 0.55;
+    --glass-border: 210 60% 80% / 0.12;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* Clears the fixed top bar when jumping to an anchor */
+    scroll-padding-top: 6rem;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "ss01", "cv01";
+    /* The canvas background sits behind everything */
+    background-color: hsl(var(--background));
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: hsl(var(--glow-cyan) / 0.3);
+    color: hsl(var(--foreground));
+  }
+
+  /* Accessibility: kill heavy motion when the user asks for it. */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* Frosted panel used across every card in the site. */
+  .glass {
+    background: hsl(var(--glass-bg));
+    border: 1px solid hsl(var(--glass-border));
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    @apply shadow-glass;
+  }
+
+  .glass-strong {
+    background: hsl(var(--glass-bg));
+    border: 1px solid hsl(var(--glass-border));
+    backdrop-filter: blur(24px) saturate(160%);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    @apply shadow-glass-lg;
+  }
+
+  /* Gradient text used for names, headings and metric numerals. */
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      120deg,
+      hsl(var(--foreground)) 0%,
+      hsl(var(--glow-cyan)) 45%,
+      hsl(var(--glow-violet)) 100%
+    );
+  }
+
+  .text-gradient-accent {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      100deg,
+      hsl(var(--glow-cyan)) 0%,
+      hsl(var(--glow-violet)) 100%
+    );
+  }
+
+  /* Hairline gradient rule used to separate sections. */
+  .hairline {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      hsl(var(--glow-cyan) / 0.35),
+      hsl(var(--glow-violet) / 0.35),
+      transparent
+    );
+  }
+
+  /* Section heading eyebrow chip. */
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full px-3 py-1 text-[0.7rem] font-medium uppercase tracking-[0.18em];
+    background: hsl(var(--glow-cyan) / 0.1);
+    color: hsl(var(--glow-cyan));
+    border: 1px solid hsl(var(--glow-cyan) / 0.2);
+  }
+
+  /* Focus ring that stays visible on glass. */
+  .focus-ring {
+    @apply outline-none ring-offset-0 focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))];
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+  /* Horizontal snap carousel used for achievements on mobile. */
+  .snap-x-carousel {
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .snap-x-carousel::-webkit-scrollbar {
+    display: none;
+  }
+  .snap-item {
+    scroll-snap-align: center;
+  }
+}
+
+/* ---------------------------------------------------------------- */
+/*  Print styles — drive the "Download Resume" view at /resume       */
+/* ---------------------------------------------------------------- */
+@media print {
+  @page {
+    margin: 14mm;
+    size: A4;
+  }
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  .print-plain,
+  .print-plain * {
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    border-color: #d4d4d4 !important;
+    backdrop-filter: none !important;
+  }
+  a {
+    text-decoration: none !important;
+  }
+  .print-break-avoid {
+    break-inside: avoid;
+  }
+}
