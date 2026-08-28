@@ -1,21 +1,26 @@
 "use client";
 
-import { useRef, useState, type ReactNode } from "react";
-import { useReducedMotion } from "framer-motion";
+import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 /**
- * Glass card with two pointer-driven effects:
- *   - a spotlight that tracks the cursor
- *   - a subtle 3D tilt
+ * Flat panel with a hover accent.
  *
- * Both are pointer-only (never fires on touch) and both switch off under
- * prefers-reduced-motion.
+ * The cursor-tracking spotlight and the 3D tilt are gone. Under the Terminal
+ * direction a surface is a surface: it does not follow you around the screen
+ * and it does not pretend to have depth. What is left is a border that picks
+ * up the accent on hover and a hairline that lights along the top edge — both
+ * pure CSS transitions, so there is no pointer state to track, nothing to
+ * recompute per mousemove, and no touch/reduced-motion branching to get wrong.
+ *
+ * `spotlightColor` keeps its name and its call sites: it now tints the hover
+ * border and hairline rather than a radial gradient. `tilt` is accepted and
+ * ignored so existing usage stays valid.
  */
 export function SpotlightCard({
   children,
   className,
-  tilt = true,
+  tilt: _tilt = true,
   spotlightColor = "var(--glow-cyan)",
 }: {
   children: ReactNode;
@@ -23,69 +28,24 @@ export function SpotlightCard({
   tilt?: boolean;
   spotlightColor?: string;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const reduced = useReducedMotion();
-  const [pos, setPos] = useState({ x: 50, y: 50 });
-  const [active, setActive] = useState(false);
-  const [transform, setTransform] = useState("");
-
-  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (reduced || e.pointerType === "touch") return;
-    const el = ref.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const px = (e.clientX - rect.left) / rect.width;
-    const py = (e.clientY - rect.top) / rect.height;
-
-    setPos({ x: px * 100, y: py * 100 });
-
-    if (tilt) {
-      // Keep the tilt tiny — enough to read as depth, not enough to distract.
-      const rx = (0.5 - py) * 6;
-      const ry = (px - 0.5) * 6;
-      setTransform(
-        `perspective(900px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg)`
-      );
-    }
-  };
-
-  const reset = () => {
-    setActive(false);
-    setTransform("");
-  };
-
   return (
     <div
-      ref={ref}
-      onPointerMove={onPointerMove}
-      onPointerEnter={(e) => {
-        if (e.pointerType !== "touch") setActive(true);
-      }}
-      onPointerLeave={reset}
-      style={{ transform, transition: "transform 400ms cubic-bezier(0.21,0.6,0.35,1)" }}
+      style={
+        {
+          "--card-accent": `hsl(${spotlightColor})`,
+        } as React.CSSProperties
+      }
       className={cn(
-        "group relative overflow-hidden rounded-2xl glass",
-        "transition-[border-color,box-shadow] duration-400",
-        "hover:border-[hsl(var(--glow-cyan)/0.35)]",
+        "group relative overflow-hidden rounded-lg glass",
+        "transition-colors duration-150",
+        "hover:border-[var(--card-accent)]",
         className
       )}
     >
-      {/* Cursor spotlight */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300"
-        style={{
-          opacity: active ? 1 : 0,
-          background: `radial-gradient(420px circle at ${pos.x}% ${pos.y}%, hsl(${spotlightColor} / 0.14), transparent 65%)`,
-        }}
-      />
-      {/* Top hairline that lights up on hover */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-px opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-        style={{
-          background: `linear-gradient(90deg, transparent, hsl(${spotlightColor} / 0.7), transparent)`,
-        }}
+        className="pointer-events-none absolute inset-x-0 top-0 h-px opacity-0 transition-opacity duration-150 group-hover:opacity-100"
+        style={{ background: "var(--card-accent)" }}
       />
       <div className="relative">{children}</div>
     </div>

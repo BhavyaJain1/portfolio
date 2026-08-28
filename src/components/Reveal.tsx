@@ -5,17 +5,26 @@ import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 /**
- * Scroll-reveal wrapper. Children fade + rise into place once, when they
- * enter the viewport. Under prefers-reduced-motion everything renders
- * immediately with no transform.
+ * Scroll-reveal wrapper. Children enter once, when they scroll into view.
+ *
+ * Terminal motion contract: short, fast, and horizontal. Content slides in
+ * from the left like a line of output being written, rather than drifting up
+ * from below. 170ms with a hard ease-out reads as a machine committing a
+ * result; the previous 600ms rise read as decoration and kept content
+ * invisible long enough to be felt.
+ *
+ * Under prefers-reduced-motion everything renders immediately, no transform.
  */
+
+const EASE = [0.16, 0.84, 0.44, 1] as const;
+const DURATION = 0.17;
 
 type RevealProps = {
   children: ReactNode;
   className?: string;
   delay?: number;
-  /** Distance travelled on entry, in px. */
-  y?: number;
+  /** Distance travelled on entry, in px. Horizontal under this theme. */
+  x?: number;
   once?: boolean;
 };
 
@@ -23,7 +32,7 @@ export function Reveal({
   children,
   className,
   delay = 0,
-  y = 24,
+  x = 8,
   once = true,
 }: RevealProps) {
   const reduced = useReducedMotion();
@@ -31,13 +40,13 @@ export function Reveal({
   return (
     <motion.div
       className={className}
-      initial={reduced ? { opacity: 0 } : { opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once, margin: "-80px 0px -80px 0px" }}
+      initial={reduced ? { opacity: 0 } : { opacity: 0, x }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once, margin: "-60px 0px -60px 0px" }}
       transition={{
-        duration: reduced ? 0.25 : 0.6,
+        duration: reduced ? 0.15 : DURATION,
         delay,
-        ease: [0.21, 0.6, 0.35, 1],
+        ease: EASE,
       }}
     >
       {children}
@@ -49,7 +58,7 @@ export function Reveal({
 export function RevealGroup({
   children,
   className,
-  stagger = 0.08,
+  stagger = 0.04,
   delay = 0,
 }: {
   children: ReactNode;
@@ -59,7 +68,7 @@ export function RevealGroup({
 }) {
   const reduced = useReducedMotion();
 
-  const container: Variants = {
+  const variants: Variants = {
     hidden: {},
     show: {
       transition: {
@@ -72,7 +81,7 @@ export function RevealGroup({
   return (
     <motion.div
       className={className}
-      variants={container}
+      variants={variants}
       initial="hidden"
       whileInView="show"
       viewport={{ once: true, margin: "-60px 0px -60px 0px" }}
@@ -85,25 +94,23 @@ export function RevealGroup({
 export function RevealItem({
   children,
   className,
-  y = 20,
 }: {
   children: ReactNode;
   className?: string;
-  y?: number;
 }) {
   const reduced = useReducedMotion();
 
-  const item: Variants = {
-    hidden: reduced ? { opacity: 0 } : { opacity: 0, y },
+  const variants: Variants = {
+    hidden: reduced ? { opacity: 0 } : { opacity: 0, x: 8 },
     show: {
       opacity: 1,
-      y: 0,
-      transition: { duration: reduced ? 0.2 : 0.55, ease: [0.21, 0.6, 0.35, 1] },
+      x: 0,
+      transition: { duration: reduced ? 0.15 : DURATION, ease: EASE },
     },
   };
 
   return (
-    <motion.div variants={item} className={cn(className)}>
+    <motion.div className={cn(className)} variants={variants}>
       {children}
     </motion.div>
   );

@@ -4,53 +4,59 @@
 
 @layer base {
   :root {
-    /* Light theme (optional toggle) */
-    --background: 220 40% 98%;
-    --foreground: 232 45% 9%;
+    /* Light theme (optional toggle) — "Terminal" on paper.
+       Accents run darker than their dark-theme twins because here they sit as
+       text on a near-white surface and must clear 3:1 AA for large text. */
+    --background: 150 12% 97%;
+    --foreground: 210 20% 11%;
     --card: 0 0% 100%;
-    --card-foreground: 232 45% 9%;
-    --muted: 220 20% 94%;
-    --muted-foreground: 232 12% 38%;
-    --primary: 199 92% 42%;
+    --card-foreground: 210 20% 11%;
+    --muted: 150 10% 93%;
+    --muted-foreground: 205 8% 36%;
+    --primary: 154 72% 26%;
     --primary-foreground: 0 0% 100%;
-    --accent: 265 85% 55%;
+    --accent: 188 78% 27%;
     --accent-foreground: 0 0% 100%;
-    --border: 232 18% 86%;
-    --input: 232 18% 86%;
-    --ring: 199 92% 48%;
+    --border: 150 10% 85%;
+    --input: 150 10% 85%;
+    --ring: 154 72% 30%;
 
-    /* Darker than the dark-theme accents: these sit on white as text, so they
-       need to clear the 3:1 AA large-text threshold rather than just glow. */
-    --glow-cyan: 192 92% 33%;
-    --glow-violet: 265 72% 50%;
+    /* Signal green (pass) + instrument teal. Names kept for continuity. */
+    --glow-cyan: 154 72% 26%;
+    --glow-violet: 188 78% 27%;
 
-    --glass-bg: 0 0% 100% / 0.7;
-    --glass-border: 232 20% 80% / 0.6;
+    --glass-bg: 0 0% 100% / 0.86;
+    --glass-border: 150 12% 82%;
 
-    --radius: 1rem;
+    --grid-dot: 205 12% 62% / 0.3;
+
+    --radius: 0.5rem;
   }
 
   .dark {
-    /* Dark theme — the default */
-    --background: 233 47% 4%;
-    --foreground: 210 40% 96%;
-    --card: 233 38% 8%;
-    --card-foreground: 210 40% 96%;
-    --muted: 233 28% 14%;
-    --muted-foreground: 220 16% 68%;
-    --primary: 190 95% 55%;
-    --primary-foreground: 233 47% 5%;
-    --accent: 265 90% 66%;
-    --accent-foreground: 233 47% 5%;
-    --border: 232 30% 18%;
-    --input: 232 30% 18%;
-    --ring: 190 95% 55%;
+    /* Dark theme — the default. Graphite, not navy: the grid should read as
+       instrument panel rather than night sky. */
+    --background: 220 18% 7%;
+    --foreground: 150 12% 94%;
+    --card: 220 16% 10%;
+    --card-foreground: 150 12% 94%;
+    --muted: 220 14% 15%;
+    --muted-foreground: 205 10% 62%;
+    --primary: 152 68% 48%;
+    --primary-foreground: 220 18% 7%;
+    --accent: 186 62% 50%;
+    --accent-foreground: 220 18% 7%;
+    --border: 220 12% 19%;
+    --input: 220 12% 19%;
+    --ring: 152 68% 48%;
 
-    --glow-cyan: 190 95% 55%;
-    --glow-violet: 265 90% 66%;
+    --glow-cyan: 152 68% 48%;
+    --glow-violet: 186 62% 50%;
 
-    --glass-bg: 233 40% 10% / 0.55;
-    --glass-border: 210 60% 80% / 0.12;
+    --glass-bg: 220 16% 10% / 0.88;
+    --glass-border: 220 12% 20%;
+
+    --grid-dot: 150 14% 70% / 0.13;
   }
 
   * {
@@ -94,21 +100,25 @@
 }
 
 @layer components {
-  /* Frosted panel used across every card in the site. */
+  /* Flat instrument panel. Name kept so every existing call site still works,
+     but the frosted blur is gone — Terminal surfaces are opaque and bordered,
+     and dropping backdrop-filter removes the most expensive paint on the page. */
   .glass {
     background: hsl(var(--glass-bg));
     border: 1px solid hsl(var(--glass-border));
-    backdrop-filter: blur(14px) saturate(140%);
-    -webkit-backdrop-filter: blur(14px) saturate(140%);
-    @apply shadow-glass;
   }
 
   .glass-strong {
-    background: hsl(var(--glass-bg));
+    background: hsl(var(--background) / 0.94);
     border: 1px solid hsl(var(--glass-border));
-    backdrop-filter: blur(24px) saturate(160%);
-    -webkit-backdrop-filter: blur(24px) saturate(160%);
-    @apply shadow-glass-lg;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  /* Static dot grid. Replaces the particle canvas — no rAF loop, no CPU. */
+  .grid-field {
+    background-image: radial-gradient(hsl(var(--grid-dot)) 1px, transparent 1px);
+    background-size: 22px 22px;
   }
 
   /* Gradient text used for names, headings and metric numerals. */
@@ -143,12 +153,14 @@
     );
   }
 
-  /* Section heading eyebrow chip. */
+  /* Section eyebrow — square, monospace, reads as a run label rather than a
+     pill. Mono is confined to chrome like this; body copy stays sans. */
   .eyebrow {
-    @apply inline-flex items-center gap-2 rounded-full px-3 py-1 text-[0.7rem] font-medium uppercase tracking-[0.18em];
-    background: hsl(var(--glow-cyan) / 0.1);
+    @apply inline-flex items-center gap-2 rounded px-2 py-1 text-[0.7rem] font-medium uppercase tracking-[0.16em];
+    font-family: var(--font-mono), ui-monospace, monospace;
+    background: hsl(var(--glow-cyan) / 0.09);
     color: hsl(var(--glow-cyan));
-    border: 1px solid hsl(var(--glow-cyan) / 0.2);
+    border: 1px solid hsl(var(--glow-cyan) / 0.22);
   }
 
   /* Focus ring that stays visible on glass. */

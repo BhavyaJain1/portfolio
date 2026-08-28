@@ -31,8 +31,11 @@ export function Hero() {
     target: ref,
     offset: ["start start", "end start"],
   });
-  const y = useTransform(scrollYProgress, [0, 1], [0, reduced ? 0 : 90]);
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, reduced ? 1 : 0]);
+  // Drift only. The hero used to fade to nothing by 80% of its own height,
+  // which meant the name and summary dissolved while they were still the most
+  // useful thing on screen. Content stays legible; the parallax is now a hint.
+  const y = useTransform(scrollYProgress, [0, 1], [0, reduced ? 0 : 40]);
+  const opacity = useTransform(scrollYProgress, [0, 1], [1, reduced ? 1 : 0.75]);
 
   const ease = [0.21, 0.6, 0.35, 1] as const;
 
