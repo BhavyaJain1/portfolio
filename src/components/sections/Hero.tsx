@@ -144,6 +144,17 @@ export function Hero() {
               );
             })}
           </motion.div>
+
+          {/* Full resume summary — moved up from the old "More" section */}
+          <motion.div {...rise(0.56)} className="mt-12 max-w-3xl">
+            <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+              Summary
+            </h2>
+            <div className="hairline my-4" />
+            <p className="text-pretty text-sm leading-relaxed text-muted-foreground sm:text-base">
+              {basics.summary}
+            </p>
+          </motion.div>
         </div>
       </motion.div>
 

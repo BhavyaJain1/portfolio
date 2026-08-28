@@ -106,9 +106,9 @@ export const basics = {
   email: "jainbhavy30@gmail.com",
   phone: "+91 92155 46310",
   yearsExperience: 5,
-  /** resume SUMMARY block, verbatim */
+  /** SUMMARY block — author-supplied site copy, no longer verbatim from the resume PDF */
   summary:
-    "QA Automation Engineer with 5 years of experience in test automation, API testing, and performance testing across AI-driven agriculture and healthcare products. Built a 300+ test-case Playwright (JavaScript) automation suite from scratch and integrated it into a CI/CD pipeline with Slack reporting, replacing a fully manual regression process. Experienced in JMeter load and performance testing, functional and regression testing, and database/SQL testing within Agile/Scrum teams.",
+    "QA Automation Engineer with 5 years of experience in test automation, API testing, and performance testing across AI-driven agriculture and healthcare products. Experienced in building automation test suites using Playwright (JS), along with CI/CD integration using GitHub Actions with Slack and Gmail reporting. Experienced in load and performance testing using JMeter, functional and regression testing within Agile/Scrum teams.",
   /** condensed hero line, meaning unchanged (permitted by the clarity rule) */
   heroSummary:
     "5 years building test automation, API and performance testing for AI-driven agriculture and healthcare products.",
@@ -164,6 +164,7 @@ export const experience: Role[] = [
         source: "resume",
         bullets: [
           "Designed and built a 300+ test-case Playwright (JavaScript) automation suite from scratch covering all dashboard modules, replacing a fully manual regression process.",
+          "Built an autonomous testing agent for the web app that turns a PRD and design references into executable coverage — authoring the test cases into a generated Excel tracker when given login credentials, automating the test cases which are possible to automate through Playwright MCP, and flagging them as automated on completion in the test case sheet.",
           "Integrated the suite into the CI/CD pipeline using GitHub Actions with Slack run notifications, reducing regression feedback time from 2 days to 45 minutes per build.",
           "Built REST API automation in Playwright covering all endpoints, validating status codes, response schemas, and error handling alongside UI coverage.",
           "Use GitHub Copilot and Cursor to generate and refactor Playwright test scripts, and prompt LLMs to draft test scenarios and edge cases, shortening the time to author coverage for new features.",
@@ -192,7 +193,7 @@ export const experience: Role[] = [
         source: "resume",
         bullets: [
           "Validated image-inference output for accuracy and consistency across varied input conditions, defining pass/fail criteria for non-deterministic model results.",
-          "Developed a mobile automation test suite using Appium covering 62 test cases.",
+          "Built an autonomous testing agent for the mobile app that turns a PRD and design references into executable coverage — authoring the test cases into a generated Excel tracker when given login credentials, automating the test cases which are possible to automate through Appium MCP, and flagging them as automated on completion in the test case sheet; the Appium mobile automation suite covers 62 test cases.",
           "Performed JMeter load testing and regression testing across releases.",
           "Wrote complex SQL queries to validate database objects including tables, views, and indexes.",
           "Contributed to product design reviews, giving input on functional requirements, testability, schedules, and risk.",
@@ -597,7 +598,6 @@ export const sections = [
   { id: "projects", label: "Projects" },
   { id: "skills", label: "Skills" },
   { id: "education", label: "Education" },
-  { id: "more", label: "More" },
   { id: "contact", label: "Contact" },
 ] as const;
 
