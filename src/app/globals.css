@@ -19,8 +19,10 @@
     --input: 232 18% 86%;
     --ring: 199 92% 48%;
 
-    --glow-cyan: 190 95% 50%;
-    --glow-violet: 265 90% 62%;
+    /* Darker than the dark-theme accents: these sit on white as text, so they
+       need to clear the 3:1 AA large-text threshold rather than just glow. */
+    --glow-cyan: 192 92% 33%;
+    --glow-violet: 265 72% 50%;
 
     --glass-bg: 0 0% 100% / 0.7;
     --glass-border: 232 20% 80% / 0.6;

@@ -147,9 +147,9 @@ export const experience: Role[] = [
     id: "wadhwani-ai",
     company: "Wadhwani AI",
     role: "QA Automation Engineer II",
-    dates: "Apr 2023 – Present",
+    dates: "May 2023 – Present",
     location: "New Delhi, India",
-    tenure: "3 years 5 months",
+    tenure: "3 years 4 months",
     summary:
       "Sole QA owner for four AI products across the agriculture and healthcare domains, supporting 5 releases per year on independent release cycles.",
     bullets: [],
@@ -548,13 +548,15 @@ export const extra: ExtraItem[] = [
   },
   {
     label: "JBM Group — role variant",
-    value: "Frontend Web Developer · June 2020 – September 2020 (4 months)",
-    note: "LinkedIn title. The resume records “Frontend Web Developer Intern”.",
+    value:
+      "Frontend Web Developer · June 2020 – September 2020 (4 months) · Gurugram, Haryana, India",
+    note: "LinkedIn title and location. The resume records “Frontend Web Developer Intern” in “Gurugram, India”.",
     source: "linkedin",
   },
   {
     label: "JBM Group — role variant",
-    value: "Frontend Developer · June 2020 – September 2020 (4 months)",
+    value:
+      "Frontend Developer · June 2020 – September 2020 (4 months) · Gurugram, Haryana, India",
     note: "Second LinkedIn entry for the same period at the same employer.",
     source: "linkedin",
   },
@@ -590,7 +592,6 @@ export const extra: ExtraItem[] = [
 
 export const sections = [
   { id: "hero", label: "Home" },
-  { id: "impact", label: "Impact" },
   { id: "experience", label: "Experience" },
   { id: "achievements", label: "Achievements" },
   { id: "projects", label: "Projects" },

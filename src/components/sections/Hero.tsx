@@ -9,9 +9,8 @@ import {
   useTransform,
 } from "framer-motion";
 import { ArrowDown, FileText, Github, Linkedin, Mail, MapPin } from "lucide-react";
-import { achievements, basics, links, topImpactIds } from "@/data/resume";
+import { basics, links } from "@/data/resume";
 import { useSplash } from "@/components/Splash";
-import { Counter } from "@/components/Counter";
 import { Button } from "@/components/ui/button";
 
 const ICONS = {
@@ -35,18 +34,24 @@ export function Hero() {
   const y = useTransform(scrollYProgress, [0, 1], [0, reduced ? 0 : 90]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, reduced ? 1 : 0]);
 
-  const top3 = topImpactIds
-    .map((id) => achievements.find((a) => a.id === id))
-    .filter((a): a is NonNullable<typeof a> => Boolean(a));
-
-  // Hero content waits for the splash to clear, then plays in.
-  const show = done;
   const ease = [0.21, 0.6, 0.35, 1] as const;
 
+  /**
+   * The hero always animates in on mount — never gated on splash state.
+   * Gating it meant any interruption to the splash effect (HMR, a restored
+   * session, a cancelled timer) could strand the content at opacity 0.
+   * While the splash is up it covers the viewport, so this plays underneath
+   * and the splash's scale-and-blur exit reveals a composed hero.
+   */
   const rise = (delay: number) => ({
     initial: reduced ? { opacity: 0 } : { opacity: 0, y: 28 },
-    animate: show ? { opacity: 1, y: 0 } : {},
-    transition: { duration: reduced ? 0.3 : 0.75, delay, ease },
+    animate: { opacity: 1, y: 0 },
+    transition: {
+      duration: reduced ? 0.3 : 0.75,
+      // Offset past the splash so the entrance is still legible when it clears.
+      delay: reduced ? 0 : delay + (done ? 0 : 0.9),
+      ease,
+    },
   });
 
   return (
@@ -140,43 +145,13 @@ export function Hero() {
             })}
           </motion.div>
         </div>
-
-        {/* ---- Top 3 Impact strip — above the fold, resume data only ---- */}
-        <motion.div
-          {...rise(0.58)}
-          id="impact"
-          className="mt-12 grid scroll-mt-24 grid-cols-1 gap-3 sm:mt-16 sm:grid-cols-3"
-        >
-          {top3.map((item) => (
-            <div
-              key={item.id}
-              className="glass rounded-2xl p-4 transition-colors duration-300 hover:border-[hsl(var(--glow-cyan)/0.35)] sm:p-5"
-            >
-              <div className="font-mono text-2xl font-bold text-gradient-accent sm:text-3xl">
-                {item.metric ? (
-                  <Counter
-                    value={item.metric.value}
-                    prefix={item.metric.prefix}
-                    suffix={item.metric.suffix}
-                    display={item.metric.display}
-                  />
-                ) : (
-                  "—"
-                )}
-              </div>
-              <p className="mt-1.5 text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                {item.metric?.label}
-              </p>
-            </div>
-          ))}
-        </motion.div>
       </motion.div>
 
       {/* Scroll cue */}
       <motion.div
         initial={{ opacity: 0 }}
-        animate={show ? { opacity: 1 } : {}}
-        transition={{ delay: 1.1, duration: 0.6 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: reduced ? 0 : 1.6, duration: 0.6 }}
         className="pointer-events-none absolute inset-x-0 bottom-5 hidden justify-center lg:flex"
       >
         <motion.div

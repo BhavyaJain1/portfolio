@@ -14,7 +14,7 @@ import { basics } from "@/data/resume";
 /**
  * Splash / intro gate.
  *
- * Runs ~1.6s on a cold load: animated monogram drawn from the initials, a
+ * Runs ~1.6s on a cold load: animated wordmark drawn from the first name, a
  * progress bar, then a cinematic wipe into the hero. Replays are suppressed
  * for the rest of the browser session so returning from /resume is instant.
  * Under prefers-reduced-motion the whole thing is skipped.
@@ -58,7 +58,8 @@ export function SplashGate({ children }: { children: ReactNode }) {
 }
 
 function SplashScreen() {
-  const letters = basics.initials.split("");
+  // First name rather than the nav's compact monogram — the splash has room.
+  const letters = basics.name.split(" ")[0].split("");
 
   return (
     <motion.div
@@ -101,7 +102,7 @@ function SplashScreen() {
                 animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 transition={{
                   duration: 0.7,
-                  delay: 0.1 + i * 0.13,
+                  delay: 0.1 + i * 0.09,
                   ease: [0.21, 0.6, 0.35, 1],
                 }}
               >
