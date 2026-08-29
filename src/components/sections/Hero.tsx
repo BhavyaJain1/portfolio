@@ -11,6 +11,7 @@ import {
 import { ArrowDown, FileText, Github, Linkedin, Mail, MapPin } from "lucide-react";
 import { basics, links } from "@/data/resume";
 import { useSplash } from "@/components/Splash";
+import { Logo } from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 
 const ICONS = {
@@ -63,8 +64,41 @@ export function Hero() {
       ref={ref}
       className="relative flex min-h-[100svh] flex-col justify-center pb-10 pt-28 sm:pb-16"
     >
-      <motion.div style={{ y, opacity }} className="container">
-        <div className="max-w-4xl">
+      <motion.div style={{ y, opacity }} className="container relative">
+        {/*
+          Brand mark, large.
+
+          On xl+ it occupies the dead half of the hero that the max-w-4xl text
+          column never reaches — the highest-attention area on the site, and it
+          stays on screen for as long as the visitor is at the top rather than
+          for the second the splash lasts. Below xl there is no room beside the
+          text, so it sits above the name instead. Either way it is always on
+          screen, which the splash-only placement could not manage: a returning
+          visitor has the splash suppressed and never saw the mark at all.
+        */}
+        <motion.div
+          aria-hidden="true"
+          className="pointer-events-none absolute right-0 top-1/2 hidden -translate-y-1/2 xl:block"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{
+            duration: reduced ? 0.3 : 0.7,
+            delay: reduced ? 0 : done ? 0.35 : 1.25,
+            ease,
+          }}
+        >
+          <Logo className="w-[17rem] 2xl:w-[21rem]" />
+        </motion.div>
+
+        {/* Text pulls back on xl so it clears the mark's column rather than
+            running under it — and the shorter measure reads better anyway. */}
+        <div className="max-w-4xl xl:max-w-3xl">
+          {/* Brand mark, compact — stands in below xl where the large one has
+              no room to sit beside the text. */}
+          <motion.div {...rise(0.02)} className="mb-5 xl:hidden">
+            <Logo className="w-16 sm:w-20" />
+          </motion.div>
+
           {/* Location chip */}
           <motion.div {...rise(0.05)}>
             <span className="eyebrow">

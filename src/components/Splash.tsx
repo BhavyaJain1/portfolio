@@ -33,7 +33,7 @@ const SplashContext = createContext<{ done: boolean }>({ done: true });
 export const useSplash = () => useContext(SplashContext);
 
 const SESSION_KEY = "bj-splash-seen";
-const DURATION_MS = 1100;
+const DURATION_MS = 1400;
 const EASE = [0.16, 0.84, 0.44, 1] as const;
 
 export function SplashGate({ children }: { children: ReactNode }) {
@@ -85,11 +85,11 @@ function SplashScreen() {
         {/* Brand mark. oneShot so the assertion check draws and holds inside
             the 1100ms window rather than looping back to empty. */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.94 }}
-          animate={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ duration: 0.22, ease: EASE }}
         >
-          <Logo oneShot className="size-16 sm:size-20" />
+          <Logo oneShot className="w-32 sm:w-40" />
         </motion.div>
 
         <motion.p

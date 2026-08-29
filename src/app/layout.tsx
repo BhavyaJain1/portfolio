@@ -17,6 +17,9 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  // Required for the generated opengraph-image to resolve to an absolute URL —
+  // without it Next emits a relative path that most scrapers will not follow.
+  metadataBase: new URL("https://bhavyajain1.github.io"),
   title: `${basics.name} — ${basics.title}`,
   description: basics.heroSummary,
   openGraph: {

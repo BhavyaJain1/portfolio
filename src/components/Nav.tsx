@@ -6,6 +6,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { FileText, Menu, X } from "lucide-react";
 import { basics, sections } from "@/data/resume";
 import { useActiveSection } from "@/hooks/useActiveSection";
+import { LogoMark } from "@/components/Logo";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -64,9 +65,7 @@ export function Nav() {
               className="flex items-center gap-2.5 rounded-full px-2 py-1 focus-ring"
               aria-label="Back to top"
             >
-              <span className="grid size-8 place-items-center rounded-lg bg-[linear-gradient(135deg,hsl(var(--glow-cyan)),hsl(var(--glow-violet)))] text-sm font-bold text-[hsl(var(--primary-foreground))]">
-                {basics.initials}
-              </span>
+              <LogoMark className="size-8 shrink-0" />
               <span className="hidden text-sm font-semibold tracking-tight sm:block">
                 {basics.name}
               </span>

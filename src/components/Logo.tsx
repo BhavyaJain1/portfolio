@@ -131,3 +131,57 @@ export function Logo({
     </svg>
   );
 }
+
+/**
+ * Small-size variant of the mark, for anywhere under ~48px.
+ *
+ * The full logo does not survive being shrunk: six leg strokes at 2.5px, two
+ * antennae and a dashed ring collapse into fuzz well before favicon size. This
+ * drops the legs, antennae, inner ring and radar sweep, thickens what remains,
+ * and keeps only what stays legible — reticle, body, and the green check that
+ * carries the whole idea. Same geometry as app/icon.svg.
+ */
+export function LogoMark({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 120 120"
+      className={className}
+      role="img"
+      aria-label="Bhavya Jain"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <defs>
+        <linearGradient id="bjMarkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#06b6d4" />
+          <stop offset="100%" stopColor="#10b981" />
+        </linearGradient>
+      </defs>
+
+      <rect width="120" height="120" rx="26" fill="hsl(var(--muted))" />
+
+      <circle cx="60" cy="60" r="36" stroke="hsl(var(--border))" strokeWidth="4" fill="none" />
+
+      <line x1="60" y1="10" x2="60" y2="26" stroke="#06b6d4" strokeWidth="7" strokeLinecap="round" />
+      <line x1="60" y1="94" x2="60" y2="110" stroke="#06b6d4" strokeWidth="7" strokeLinecap="round" />
+      <line x1="10" y1="60" x2="26" y2="60" stroke="#06b6d4" strokeWidth="7" strokeLinecap="round" />
+      <line x1="94" y1="60" x2="110" y2="60" stroke="#06b6d4" strokeWidth="7" strokeLinecap="round" />
+
+      <path
+        d="M 44 46 C 44 41, 76 41, 76 46 L 78 74 C 78 85, 60 92, 60 92 C 60 92, 42 85, 42 74 Z"
+        fill="hsl(var(--card))"
+        stroke="url(#bjMarkGrad)"
+        strokeWidth="5"
+        strokeLinejoin="round"
+      />
+
+      <path
+        d="M 50 64 L 57 71 L 71 55"
+        stroke="#10b981"
+        strokeWidth="8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
+      />
+    </svg>
+  );
+}
