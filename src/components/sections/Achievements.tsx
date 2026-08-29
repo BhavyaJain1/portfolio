@@ -24,7 +24,18 @@ const GROUPS: {
   { key: "awards", label: "Awards & Certifications", icon: Award, color: "var(--glow-violet)" },
 ];
 
-const FILTERS = [{ key: "all" as const, label: "All" }, ...GROUPS.map((g) => ({ key: g.key, label: g.label }))];
+/**
+ * Only offer a filter for groups that actually have entries. `GROUPS` is the
+ * static catalogue of every group the type allows; if the data no longer has
+ * a card in one, its chip would otherwise render with a count of 0 and open
+ * an empty grid.
+ */
+const FILTERS = [
+  { key: "all" as const, label: "All" },
+  ...GROUPS.filter((g) => achievements.some((a) => a.group === g.key)).map(
+    (g) => ({ key: g.key, label: g.label })
+  ),
+];
 
 export function Achievements() {
   const [filter, setFilter] = useState<GroupKey | "all">("all");
@@ -84,7 +95,7 @@ export function Achievements() {
                     style={{
                       borderColor: "hsl(var(--glow-cyan) / 0.4)",
                     }}
-                    transition={{ type: "spring", stiffness: 320, damping: 30 }}
+                    transition={{ duration: 0.17, ease: [0.16, 0.84, 0.44, 1] }}
                   />
                 )}
                 <span className="relative flex items-center gap-2">
@@ -114,13 +125,13 @@ export function Achievements() {
             <motion.div
               key={item.id}
               layout={!reduced}
-              initial={reduced ? { opacity: 0 } : { opacity: 0, scale: 0.94, y: 16 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={reduced ? { opacity: 0 } : { opacity: 0, scale: 0.94 }}
+              initial={reduced ? { opacity: 0 } : { opacity: 0, x: 8 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0 }}
               transition={{
-                duration: 0.4,
-                delay: reduced ? 0 : Math.min(index * 0.04, 0.3),
-                ease: [0.21, 0.6, 0.35, 1],
+                duration: reduced ? 0.15 : 0.17,
+                delay: reduced ? 0 : Math.min(index * 0.025, 0.15),
+                ease: [0.16, 0.84, 0.44, 1],
               }}
               className="w-[78vw] shrink-0 snap-item xs:w-[70vw] sm:w-auto"
             >
@@ -150,7 +161,7 @@ function AchievementCard({ item }: { item: Achievement }) {
       {/* Trophy plinth: icon + group tag */}
       <div className="flex items-start justify-between gap-3">
         <span
-          className="grid size-11 shrink-0 place-items-center rounded-xl transition-transform duration-500 group-hover:scale-110"
+          className="grid size-11 shrink-0 place-items-center rounded-lg transition-colors duration-150"
           style={{
             background: `hsl(${group.color} / 0.13)`,
             color: `hsl(${group.color})`,

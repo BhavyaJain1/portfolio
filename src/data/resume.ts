@@ -335,60 +335,6 @@ export const achievements: Achievement[] = [
     source: "resume",
   },
   {
-    id: "design-reviews",
-    group: "leadership",
-    title: "Contributed to product design reviews",
-    context:
-      "Giving input on functional requirements, testability, schedules, and risk for Grain Analyser.",
-    source: "resume",
-  },
-  {
-    id: "defect-lifecycle",
-    group: "wins",
-    title: "Owned the full defect lifecycle in JIRA",
-    context:
-      "Partnered with developers to reproduce and triage defects, driving timely resolution.",
-    source: "resume",
-  },
-  {
-    id: "api-automation",
-    group: "wins",
-    title: "REST API automation across all endpoints",
-    context:
-      "Validating status codes, response schemas, and error handling alongside UI coverage in Playwright.",
-    source: "resume",
-  },
-  {
-    id: "ml-validation",
-    group: "wins",
-    title: "Defined pass/fail criteria for non-deterministic model output",
-    context:
-      "Validated image-inference output for accuracy and consistency across varied input conditions.",
-    source: "resume",
-  },
-  {
-    id: "ai-assisted",
-    group: "wins",
-    title: "AI-assisted test authoring in the daily workflow",
-    context:
-      "GitHub Copilot and Cursor to generate and refactor Playwright scripts; LLMs to draft test scenarios and edge cases.",
-    source: "resume",
-  },
-  {
-    id: "cert-java",
-    group: "awards",
-    title: "Java (Basic)",
-    context: "Certification. Listed on LinkedIn as “Java Basic”.",
-    source: "both",
-  },
-  {
-    id: "cert-dbms",
-    group: "awards",
-    title: "Database Management Systems",
-    context: "Certification. Listed on LinkedIn as “Data Base Management Systems”.",
-    source: "both",
-  },
-  {
     id: "cgpa",
     group: "awards",
     title: "B.Tech Computer Science — CGPA 8.0",
