@@ -182,6 +182,138 @@
     }
   }
 
+  /* Shield mark — alternating tripod gait. The two tripods run exactly out of
+     phase, which is what reads as walking rather than legs wiggling. */
+  .bjs-body {
+    animation: bjs-body-bob 0.9s ease-in-out infinite;
+  }
+
+  .bjs-leg {
+    animation-duration: 0.9s;
+    animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
+    animation-iteration-count: infinite;
+  }
+
+  .bjs-leg-fl,
+  .bjs-leg-mr,
+  .bjs-leg-hl {
+    animation-name: bjs-tripod-a;
+  }
+
+  .bjs-leg-fr,
+  .bjs-leg-ml,
+  .bjs-leg-hr {
+    animation-name: bjs-tripod-b;
+  }
+
+  .bjs-leg-fl {
+    transform-origin: 46px 51px;
+  }
+  .bjs-leg-fr {
+    transform-origin: 74px 51px;
+  }
+  .bjs-leg-ml {
+    transform-origin: 43px 62px;
+  }
+  .bjs-leg-mr {
+    transform-origin: 77px 62px;
+  }
+  .bjs-leg-hl {
+    transform-origin: 46px 73px;
+  }
+  .bjs-leg-hr {
+    transform-origin: 74px 73px;
+  }
+
+  /* Longer, mismatched cycles so the antennae read as sensing rather than
+     keeping time with the legs. */
+  .bjs-antenna-l {
+    transform-origin: 54px 39px;
+    animation: bjs-antenna-l 1.7s ease-in-out infinite;
+  }
+
+  .bjs-antenna-r {
+    transform-origin: 66px 39px;
+    animation: bjs-antenna-r 2.1s ease-in-out infinite;
+  }
+
+  /* transform-origin is required here: without it the scale runs from the SVG
+     origin and the node drifts off the carapace instead of pulsing in place. */
+  .bjs-pass {
+    transform-origin: 60px 63px;
+    animation: bjs-pass-pulse 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes bjs-tripod-a {
+    0%,
+    100% {
+      transform: rotate(-7deg);
+    }
+    50% {
+      transform: rotate(7deg);
+    }
+  }
+
+  @keyframes bjs-tripod-b {
+    0%,
+    100% {
+      transform: rotate(7deg);
+    }
+    50% {
+      transform: rotate(-7deg);
+    }
+  }
+
+  @keyframes bjs-body-bob {
+    0%,
+    50%,
+    100% {
+      transform: translateY(0.5px);
+    }
+    25%,
+    75% {
+      transform: translateY(-0.5px);
+    }
+  }
+
+  @keyframes bjs-antenna-l {
+    0%,
+    100% {
+      transform: rotate(0deg);
+    }
+    35% {
+      transform: rotate(-8deg);
+    }
+    70% {
+      transform: rotate(5deg);
+    }
+  }
+
+  @keyframes bjs-antenna-r {
+    0%,
+    100% {
+      transform: rotate(0deg);
+    }
+    30% {
+      transform: rotate(7deg);
+    }
+    65% {
+      transform: rotate(-6deg);
+    }
+  }
+
+  @keyframes bjs-pass-pulse {
+    0%,
+    100% {
+      opacity: 0.8;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+  }
+
   /* Gradient text used for names, headings and metric numerals. */
   .text-gradient {
     @apply bg-clip-text text-transparent;

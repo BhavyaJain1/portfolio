@@ -45,49 +45,49 @@ export default async function OpengraphImage() {
             cx="60"
             cy="60"
             r="48"
-            stroke="#243040"
+            stroke="#2b2f36"
             strokeWidth="2"
             strokeDasharray="6 6"
             fill="none"
           />
-          <circle cx="60" cy="60" r="40" stroke="#2c3a4c" strokeWidth="1.5" fill="none" />
+          <circle cx="60" cy="60" r="40" stroke="#2b2f36" strokeWidth="1.5" fill="none" />
 
-          <line x1="60" y1="6" x2="60" y2="18" stroke="#06b6d4" strokeWidth="3" strokeLinecap="round" />
-          <line x1="60" y1="102" x2="60" y2="114" stroke="#06b6d4" strokeWidth="3" strokeLinecap="round" />
-          <line x1="6" y1="60" x2="18" y2="60" stroke="#06b6d4" strokeWidth="3" strokeLinecap="round" />
-          <line x1="102" y1="60" x2="114" y2="60" stroke="#06b6d4" strokeWidth="3" strokeLinecap="round" />
+          <line x1="60" y1="6" x2="60" y2="18" stroke="#30bfcf" strokeWidth="3" strokeLinecap="round" />
+          <line x1="60" y1="102" x2="60" y2="114" stroke="#30bfcf" strokeWidth="3" strokeLinecap="round" />
+          <line x1="6" y1="60" x2="18" y2="60" stroke="#30bfcf" strokeWidth="3" strokeLinecap="round" />
+          <line x1="102" y1="60" x2="114" y2="60" stroke="#30bfcf" strokeWidth="3" strokeLinecap="round" />
 
-          <path d="M 54 38 L 42 24" stroke="#06b6d4" strokeWidth="2.5" strokeLinecap="round" fill="none" />
-          <circle cx="42" cy="24" r="2.5" fill="#06b6d4" />
-          <path d="M 66 38 L 78 24" stroke="#06b6d4" strokeWidth="2.5" strokeLinecap="round" fill="none" />
-          <circle cx="78" cy="24" r="2.5" fill="#06b6d4" />
+          <path d="M 54 38 L 42 24" stroke="#30bfcf" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+          <circle cx="42" cy="24" r="2.5" fill="#30bfcf" />
+          <path d="M 66 38 L 78 24" stroke="#30bfcf" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+          <circle cx="78" cy="24" r="2.5" fill="#30bfcf" />
 
-          <path d="M 50 40 Q 60 34 70 40 L 68 46 L 52 46 Z" fill="#1a2130" stroke="#06b6d4" strokeWidth="2" />
+          <path d="M 50 40 Q 60 34 70 40 L 68 46 L 52 46 Z" fill="#21252c" stroke="#30bfcf" strokeWidth="2" />
 
-          <path d="M 46 54 L 30 48" stroke="#6366f1" strokeWidth="2.5" strokeLinecap="round" />
-          <path d="M 74 54 L 90 48" stroke="#6366f1" strokeWidth="2.5" strokeLinecap="round" />
-          <path d="M 44 64 L 26 64" stroke="#6366f1" strokeWidth="2.5" strokeLinecap="round" />
-          <path d="M 76 64 L 94 64" stroke="#6366f1" strokeWidth="2.5" strokeLinecap="round" />
-          <path d="M 46 74 L 30 80" stroke="#6366f1" strokeWidth="2.5" strokeLinecap="round" />
-          <path d="M 74 74 L 90 80" stroke="#6366f1" strokeWidth="2.5" strokeLinecap="round" />
+          <path d="M 46 54 L 30 48" stroke="#2a8f9c" strokeWidth="2.5" strokeLinecap="round" />
+          <path d="M 74 54 L 90 48" stroke="#2a8f9c" strokeWidth="2.5" strokeLinecap="round" />
+          <path d="M 44 64 L 26 64" stroke="#2a8f9c" strokeWidth="2.5" strokeLinecap="round" />
+          <path d="M 76 64 L 94 64" stroke="#2a8f9c" strokeWidth="2.5" strokeLinecap="round" />
+          <path d="M 46 74 L 30 80" stroke="#2a8f9c" strokeWidth="2.5" strokeLinecap="round" />
+          <path d="M 74 74 L 90 80" stroke="#2a8f9c" strokeWidth="2.5" strokeLinecap="round" />
 
           <path
             d="M 46 48 C 46 44, 74 44, 74 48 L 76 74 C 76 84, 60 90, 60 90 C 60 90, 44 84, 44 74 Z"
-            fill="#131a24"
-            stroke="#10b981"
+            fill="#15181e"
+            stroke="#27ce80"
             strokeWidth="3"
             strokeLinejoin="round"
           />
 
           <path
             d="M 52 64 L 58 70 L 70 56"
-            stroke="#10b981"
+            stroke="#27ce80"
             strokeWidth="4"
             strokeLinecap="round"
             strokeLinejoin="round"
             fill="none"
           />
-          <circle cx="70" cy="56" r="2.5" fill="#34d399" />
+          <circle cx="70" cy="56" r="2.5" fill="#27ce80" />
         </svg>
 
         <div style={{ display: "flex", flexDirection: "column" }}>

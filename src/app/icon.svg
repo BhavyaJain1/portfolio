@@ -1,23 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
   <defs>
     <linearGradient id="bjFaviconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#06b6d4" />
-      <stop offset="100%" stop-color="#10b981" />
+      <stop offset="0%" stop-color="#27ce80" />
+      <stop offset="100%" stop-color="#30bfcf" />
     </linearGradient>
   </defs>
 
-  <rect width="120" height="120" rx="26" fill="#0d1014" />
+  <rect width="120" height="120" rx="26" fill="#21252c" />
 
-  <circle cx="60" cy="60" r="36" stroke="#334155" stroke-width="4" fill="none" />
+  <circle cx="60" cy="60" r="36" stroke="#2b2f36" stroke-width="4" fill="none" />
 
-  <line x1="60" y1="10" x2="60" y2="26" stroke="#06b6d4" stroke-width="7" stroke-linecap="round" />
-  <line x1="60" y1="94" x2="60" y2="110" stroke="#06b6d4" stroke-width="7" stroke-linecap="round" />
-  <line x1="10" y1="60" x2="26" y2="60" stroke="#06b6d4" stroke-width="7" stroke-linecap="round" />
-  <line x1="94" y1="60" x2="110" y2="60" stroke="#06b6d4" stroke-width="7" stroke-linecap="round" />
+  <line x1="60" y1="10" x2="60" y2="26" stroke="#30bfcf" stroke-width="7" stroke-linecap="round" />
+  <line x1="60" y1="94" x2="60" y2="110" stroke="#30bfcf" stroke-width="7" stroke-linecap="round" />
+  <line x1="10" y1="60" x2="26" y2="60" stroke="#30bfcf" stroke-width="7" stroke-linecap="round" />
+  <line x1="94" y1="60" x2="110" y2="60" stroke="#30bfcf" stroke-width="7" stroke-linecap="round" />
 
   <path
     d="M 44 46 C 44 41, 76 41, 76 46 L 78 74 C 78 85, 60 92, 60 92 C 60 92, 42 85, 42 74 Z"
-    fill="#0a0f1d"
+    fill="#15181e"
     stroke="url(#bjFaviconGrad)"
     stroke-width="5"
     stroke-linejoin="round"
@@ -25,7 +25,7 @@
 
   <path
     d="M 50 64 L 57 71 L 71 55"
-    stroke="#10b981"
+    stroke="#27ce80"
     stroke-width="8"
     stroke-linecap="round"
     stroke-linejoin="round"
