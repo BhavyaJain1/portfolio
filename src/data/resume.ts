@@ -30,6 +30,20 @@ export type Metric = {
   label: string;
 };
 
+/**
+ * Where the shipped product actually lives, when it is public.
+ *
+ * Only set for products a visitor can genuinely open — the TIBCO product lines
+ * and the internal health platform have no public destination, and a dead or
+ * gated link is worse than no link on a portfolio.
+ */
+export type ProjectLink = {
+  url: string;
+  /** Names the destination. Never "click here" — it has to make sense read alone. */
+  label: string;
+  kind: "web" | "play";
+};
+
 export type Project = {
   id: string;
   title: string;
@@ -37,6 +51,7 @@ export type Project = {
   org: string;
   stack: string[];
   bullets: string[];
+  link?: ProjectLink;
   source: SourceDoc;
 };
 
@@ -161,6 +176,11 @@ export const experience: Role[] = [
         tagline: "field data collection and analytics dashboard platform",
         org: "Wadhwani AI",
         stack: ["Playwright", "JavaScript", "GitHub Actions", "REST API", "Slack"],
+        link: {
+          url: "https://ai-collect.wadhwaniai.org/",
+          label: "Visit site",
+          kind: "web",
+        },
         source: "resume",
         bullets: [
           "Designed and built a 300+ test-case Playwright (JavaScript) automation suite from scratch covering all dashboard modules, replacing a fully manual regression process.",
@@ -177,6 +197,11 @@ export const experience: Role[] = [
         tagline: "image-based crop advisory application",
         org: "Wadhwani AI",
         stack: ["JMeter", "Python", "Agile"],
+        link: {
+          url: "https://play.google.com/store/apps/details?id=org.wadhwaniai.npssapp",
+          label: "Google Play",
+          kind: "play",
+        },
         source: "resume",
         bullets: [
           "Ran JMeter load and performance testing at up to 1,000 concurrent users, identifying performance bottlenecks before production release.",
@@ -190,10 +215,15 @@ export const experience: Role[] = [
         tagline: "computer-vision grain quality grading platform",
         org: "Wadhwani AI",
         stack: ["Appium", "JMeter", "SQL", "Computer Vision"],
+        link: {
+          url: "https://play.google.com/store/apps/details?id=org.wadhwaniai.grainanalyser",
+          label: "Google Play",
+          kind: "play",
+        },
         source: "resume",
         bullets: [
           "Validated image-inference output for accuracy and consistency across varied input conditions, defining pass/fail criteria for non-deterministic model results.",
-          "Built an autonomous testing agent for the mobile app that turns a PRD and design references into executable coverage — authoring the test cases into a generated Excel tracker when given login credentials, automating the test cases which are possible to automate through Appium MCP, and flagging them as automated on completion in the test case sheet; the Appium mobile automation suite covers 62 test cases.",
+          "Built an autonomous testing agent for the mobile app that turns a PRD and design references into executable coverage — authoring the test cases into a generated Excel tracker when given login credentials, automating the test cases which are possible to automate through Appium MCP, and flagging them as automated on completion in the test case sheet; the Appium mobile automation suite covers 92 test cases.",
           "Performed JMeter load testing and regression testing across releases.",
           "Wrote complex SQL queries to validate database objects including tables, views, and indexes.",
           "Contributed to product design reviews, giving input on functional requirements, testability, schedules, and risk.",
@@ -303,9 +333,9 @@ export const achievements: Achievement[] = [
   {
     id: "appium-suite",
     group: "metrics",
-    title: "Mobile automation suite covering 62 test cases",
+    title: "Mobile automation suite covering 92 test cases",
     context: "Built with Appium for the Grain Analyser computer-vision platform.",
-    metric: { value: 62, label: "Mobile test cases" },
+    metric: { value: 92, label: "Mobile test cases" },
     source: "resume",
   },
   {

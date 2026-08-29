@@ -3,6 +3,7 @@
 import { Layers } from "lucide-react";
 import { projects } from "@/data/resume";
 import { HighlightedBullet } from "@/components/HighlightedBullet";
+import { ProjectLink } from "@/components/ProjectLink";
 import { RevealGroup, RevealItem } from "@/components/Reveal";
 import { Section, SectionHeading } from "@/components/SectionHeading";
 import { SpotlightCard } from "@/components/SpotlightCard";
@@ -69,6 +70,14 @@ export function Projects() {
                     ))}
                   </ul>
                 </>
+              )}
+
+              {/* mt-auto pins this to the card floor, so the buttons line up
+                  across a row whatever each card's bullet count is. */}
+              {project.link && (
+                <div className="mt-auto pt-5">
+                  <ProjectLink link={project.link} projectTitle={project.title} />
+                </div>
               )}
             </SpotlightCard>
           </RevealItem>

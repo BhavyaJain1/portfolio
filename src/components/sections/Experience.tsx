@@ -5,6 +5,7 @@ import { Briefcase, MapPin, Sparkles, TrendingUp } from "lucide-react";
 import { experience } from "@/data/resume";
 import { collectImpactBullets } from "@/lib/metrics";
 import { HighlightedBullet } from "@/components/HighlightedBullet";
+import { ProjectLink } from "@/components/ProjectLink";
 import { Reveal, RevealGroup, RevealItem } from "@/components/Reveal";
 import { Section, SectionHeading } from "@/components/SectionHeading";
 import { SpotlightCard } from "@/components/SpotlightCard";
@@ -152,6 +153,15 @@ export function Experience() {
                                       <BulletRow key={i} text={bullet} />
                                     ))}
                                   </ul>
+
+                                  {project.link && (
+                                    <div className="mt-4">
+                                      <ProjectLink
+                                        link={project.link}
+                                        projectTitle={project.title}
+                                      />
+                                    </div>
+                                  )}
                                 </div>
                               ))}
 
