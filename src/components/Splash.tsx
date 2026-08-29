@@ -11,6 +11,7 @@ import {
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { basics } from "@/data/resume";
 import { LogoShield } from "@/components/LogoShield";
+import { StartupVideo, STARTUP_VIDEO_MS } from "@/components/StartupVideo";
 
 /**
  * Splash / intro gate.
@@ -38,42 +39,95 @@ const SplashContext = createContext<{ done: boolean }>({ done: true });
 
 export const useSplash = () => useContext(SplashContext);
 
-const SESSION_KEY = "bj-splash-seen";
-const DURATION_MS = 3000;
+/** The name-card sequence below. Its internal beats are paced to this exactly:
+ *  the last one lands at ~2.85s, so nothing is cut mid-fill. */
+const SPLASH_MS = 3000;
+const TOTAL_MS = STARTUP_VIDEO_MS + SPLASH_MS;
+
 const EASE = [0.16, 0.84, 0.44, 1] as const;
 
+type Phase = "deciding" | "video" | "splash" | "done";
+
+/**
+ * Two acts, then the site.
+ *
+ *   video   the defect hunt over a page of failing tests — no branding
+ *   splash  the mark, the typed name card, the progress bar, [ ok ]
+ *
+ * They are separate phases rather than one component because they carry
+ * different jobs: the video is the story, the splash is the identity. Neither
+ * should have to know about the other's timing.
+ *
+ * The intro runs on EVERY load. There was previously a sessionStorage guard
+ * that showed it once per browser session; it is gone by request. The only
+ * remaining skip is prefers-reduced-motion, which is an accessibility guard
+ * rather than a "seen it already" one.
+ */
 export function SplashGate({ children }: { children: ReactNode }) {
   const reduced = useReducedMotion();
-  // `null` = still deciding (first client paint), avoids a flash of the splash
-  // for users who have already seen it.
-  const [show, setShow] = useState<boolean | null>(null);
+  // `deciding` = still on the first client paint. useReducedMotion resolves
+  // on the client, so committing to a phase before then risks starting the
+  // intro for someone who asked not to have it.
+  const [phase, setPhase] = useState<Phase>("deciding");
 
   useEffect(() => {
-    const seen =
-      typeof window !== "undefined" && sessionStorage.getItem(SESSION_KEY);
-    if (seen || reduced) {
-      setShow(false);
+    if (reduced) {
+      setPhase("done");
       return;
     }
-    setShow(true);
-    const timer = setTimeout(() => {
-      setShow(false);
-      sessionStorage.setItem(SESSION_KEY, "1");
-    }, DURATION_MS);
-    return () => clearTimeout(timer);
+    setPhase("video");
+    const toSplash = setTimeout(() => setPhase("splash"), STARTUP_VIDEO_MS);
+    const toDone = setTimeout(() => setPhase("done"), TOTAL_MS);
+    return () => {
+      clearTimeout(toSplash);
+      clearTimeout(toDone);
+    };
   }, [reduced]);
 
-  const value = useMemo(() => ({ done: show === false }), [show]);
+  const value = useMemo(() => ({ done: phase === "done" }), [phase]);
 
   return (
     <SplashContext.Provider value={value}>
-      <AnimatePresence>{show && <SplashScreen key="splash" />}</AnimatePresence>
+      <AnimatePresence>
+        {phase === "video" && (
+          <motion.div
+            key="video"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0, transition: { duration: 0.3, ease: "easeOut" } }}
+          >
+            <StartupVideo />
+          </motion.div>
+        )}
+
+        {/* Fades up over the outgoing video rather than cutting. The video ends
+            on near-black; the splash sits on --background, which is near-white
+            in light mode — a hard cut between the two would flash. */}
+        {phase === "splash" && (
+          <motion.div
+            key="splash"
+            initial={{ opacity: 0 }}
+            animate={{
+              opacity: 1,
+              transition: { duration: 0.35, ease: "easeOut" },
+            }}
+            exit={{ opacity: 0, transition: { duration: 0.22, ease: "easeOut" } }}
+          >
+            <SplashScreen />
+          </motion.div>
+        )}
+      </AnimatePresence>
       {children}
     </SplashContext.Provider>
   );
 }
 
-function SplashScreen() {
+/**
+ * Act two — mark, typed name card, stepped progress, [ ok ] marker.
+ *
+ * Unchanged from the original splash and still paced to its own 3000ms window;
+ * it simply runs after the startup video now instead of on its own.
+ */
+export function SplashScreen() {
   const letters = basics.name.split(" ")[0].split("");
 
   return (
