@@ -12,10 +12,10 @@ export function Projects() {
   return (
     <Section id="projects">
       <SectionHeading
-        eyebrow="Products"
+        eyebrow="Coverage"
         title={
           <>
-            Platforms I <span className="text-gradient-accent">tested</span>
+            Products I <span className="text-gradient-accent">broke first</span>
           </>
         }
         description="The products behind the roles — four AI platforms at Wadhwani AI and two enterprise product lines at TIBCO."
