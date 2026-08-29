@@ -151,7 +151,7 @@ export const experience: Role[] = [
     location: "New Delhi, India",
     tenure: "3 years 4 months",
     summary:
-      "Sole QA owner for four AI products across the agriculture and healthcare domains, supporting 5 releases per year on independent release cycles.",
+      "Sole QA owner for four AI products across the agriculture and healthcare domains, supporting 3–4 releases per product each month on independent release cycles.",
     bullets: [],
     source: "both",
     projects: [
@@ -322,16 +322,16 @@ export const achievements: Achievement[] = [
     group: "leadership",
     title: "Sole QA owner for four AI products",
     context:
-      "Across the agriculture and healthcare domains, supporting 5 releases per year on independent release cycles.",
+      "Across the agriculture and healthcare domains, supporting 3–4 releases per product each month on independent release cycles.",
     metric: { value: 4, label: "AI products owned" },
     source: "resume",
   },
   {
     id: "release-cadence",
     group: "leadership",
-    title: "Supported 5 releases per year",
+    title: "Supported 3–4 releases per product each month",
     context: "On independent release cycles across four products.",
-    metric: { value: 5, label: "Releases per year" },
+    metric: { value: 4, prefix: "3–", label: "Releases per product each month" },
     source: "resume",
   },
   {
