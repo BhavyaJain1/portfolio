@@ -358,13 +358,12 @@ export const skills: SkillGroup[] = [
     source: "resume",
     items: [
       "Playwright (UI & API)",
-      "Selenium WebDriver",
-      "Appium (mobile)",
-      "Cypress",
-      "Cucumber BDD",
+      "Postman",
       "Page Object Model (POM)",
       "JavaScript",
-      "Python",
+      "Appium (mobile)",
+      "Selenium WebDriver",
+      "Cucumber BDD",
     ],
   },
   {
