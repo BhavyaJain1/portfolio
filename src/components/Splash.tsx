@@ -10,6 +10,7 @@ import {
 } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { basics } from "@/data/resume";
+import { Logo } from "@/components/Logo";
 
 /**
  * Splash / intro gate.
@@ -81,11 +82,21 @@ function SplashScreen() {
       />
 
       <div className="relative flex flex-col items-start gap-3 font-mono">
+        {/* Brand mark. oneShot so the assertion check draws and holds inside
+            the 1100ms window rather than looping back to empty. */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.94 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.22, ease: EASE }}
+        >
+          <Logo oneShot className="size-16 sm:size-20" />
+        </motion.div>
+
         <motion.p
           className="text-xs text-muted-foreground sm:text-sm"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.12 }}
+          transition={{ duration: 0.12, delay: 0.1 }}
         >
           <span className="text-[hsl(var(--glow-cyan))]">$</span> init --profile
         </motion.p>

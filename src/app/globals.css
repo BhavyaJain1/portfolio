@@ -121,6 +121,67 @@
     background-size: 22px 22px;
   }
 
+  /* Brand mark motion. Kept here rather than inside the SVG so the global
+     prefers-reduced-motion block above switches it off along with everything
+     else, instead of the logo needing its own escape hatch. */
+  .bj-logo-radar {
+    transform-origin: 60px 60px;
+    animation: bj-radar-sweep 4s linear infinite;
+  }
+
+  .bj-logo-tick,
+  .bj-logo-tick-once {
+    stroke-dasharray: 30;
+    stroke-dashoffset: 30;
+  }
+
+  .bj-logo-tick {
+    animation: bj-check-scan 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+
+  /* Splash variant: draw once, then hold. The tick landing is the beat the
+     splash is built around, so it must not loop back to empty mid-view. */
+  .bj-logo-tick-once {
+    animation: bj-check-draw 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.18s forwards;
+  }
+
+  @keyframes bj-radar-sweep {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes bj-check-scan {
+    0%,
+    20% {
+      stroke-dashoffset: 30;
+      opacity: 0;
+    }
+    50%,
+    85% {
+      stroke-dashoffset: 0;
+      opacity: 1;
+    }
+    100% {
+      stroke-dashoffset: 0;
+      opacity: 0;
+    }
+  }
+
+  @keyframes bj-check-draw {
+    from {
+      stroke-dashoffset: 30;
+      opacity: 0;
+    }
+    to {
+      stroke-dashoffset: 0;
+      opacity: 1;
+    }
+  }
+
   /* Gradient text used for names, headings and metric numerals. */
   .text-gradient {
     @apply bg-clip-text text-transparent;
