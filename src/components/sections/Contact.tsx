@@ -50,12 +50,10 @@ export function Contact() {
               href={`mailto:${basics.email}`}
             />
             {SHOW_PHONE && (
-              <ContactRow
-                icon={Phone}
-                label="Phone"
-                value={basics.phone}
-                href={`tel:${basics.phone.replace(/\s/g, "")}`}
-              />
+              /* No tel: href — the number is masked, so a dial link would
+                 either be broken or have to reconstruct the digits it is
+                 meant to be hiding. Email is the working channel. */
+              <ContactRow icon={Phone} label="Phone" value={basics.phone} />
             )}
             <ContactRow icon={MapPin} label="Location" value={basics.location} />
           </div>
@@ -93,10 +91,7 @@ export function Contact() {
 
       <footer className="mt-10 text-center text-xs text-muted-foreground">
         <p>
-          © {new Date().getFullYear()} {basics.name} — {basics.title}
-        </p>
-        <p className="mt-1.5 opacity-70">
-          Built with Next.js, TailwindCSS and Framer Motion.
+          © {new Date().getFullYear()} {basics.name}
         </p>
       </footer>
     </Section>

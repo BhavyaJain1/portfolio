@@ -131,14 +131,20 @@ export function Experience() {
                                   key={project.id}
                                   className="rounded-xl border border-border/60 bg-[hsl(var(--muted)/0.35)] p-4"
                                 >
-                                  <div className="flex flex-wrap items-baseline gap-x-2.5 gap-y-1">
+                                  <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1.5">
                                     <h4 className="text-sm font-semibold tracking-tight">
                                       {project.title}
                                     </h4>
-                                    <span className="text-xs text-muted-foreground">
-                                      {project.tagline}
-                                    </span>
+                                    {project.link && (
+                                      <ProjectLink
+                                        link={project.link}
+                                        projectTitle={project.title}
+                                      />
+                                    )}
                                   </div>
+                                  <p className="mt-1 text-xs text-muted-foreground">
+                                    {project.tagline}
+                                  </p>
 
                                   <div className="mt-2.5 flex flex-wrap gap-1.5">
                                     {project.stack.map((tech) => (
@@ -153,15 +159,6 @@ export function Experience() {
                                       <BulletRow key={i} text={bullet} />
                                     ))}
                                   </ul>
-
-                                  {project.link && (
-                                    <div className="mt-4">
-                                      <ProjectLink
-                                        link={project.link}
-                                        projectTitle={project.title}
-                                      />
-                                    </div>
-                                  )}
                                 </div>
                               ))}
 

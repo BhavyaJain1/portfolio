@@ -31,9 +31,21 @@ export function Projects() {
                   <Layers className="size-[18px]" />
                 </span>
                 <div className="min-w-0">
-                  <h3 className="text-base font-semibold tracking-tight sm:text-lg">
-                    {project.title}
-                  </h3>
+                  {/* Link sits with the name, not at the card floor — it reads
+                      as "this product, go see it" rather than a trailing
+                      action. flex-wrap so a long name pushes it to its own
+                      line instead of squeezing the title. */}
+                  <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1.5">
+                    <h3 className="text-base font-semibold tracking-tight sm:text-lg">
+                      {project.title}
+                    </h3>
+                    {project.link && (
+                      <ProjectLink
+                        link={project.link}
+                        projectTitle={project.title}
+                      />
+                    )}
+                  </div>
                   <p className="mt-0.5 text-xs text-muted-foreground">
                     {project.org}
                   </p>
@@ -70,14 +82,6 @@ export function Projects() {
                     ))}
                   </ul>
                 </>
-              )}
-
-              {/* mt-auto pins this to the card floor, so the buttons line up
-                  across a row whatever each card's bullet count is. */}
-              {project.link && (
-                <div className="mt-auto pt-5">
-                  <ProjectLink link={project.link} projectTitle={project.title} />
-                </div>
               )}
             </SpotlightCard>
           </RevealItem>

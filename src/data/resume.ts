@@ -119,7 +119,16 @@ export const basics = {
   location: "Hisar, Haryana, India 125001",
   locationShort: "Hisar, Haryana, India",
   email: "jainbhavy30@gmail.com",
-  phone: "+91 92155 46310",
+  /**
+   * Masked on purpose, and masked HERE rather than at the render site.
+   *
+   * Contact.tsx is a client component, so whatever this field holds is
+   * serialised into the browser bundle whether or not it is rendered.
+   * Displaying `••••` while the real digits sat in `basics.phone` would have
+   * been theatre — view-source would still hand them over. The full number is
+   * simply not in the codebase any more; it lives in the resume PDF.
+   */
+  phone: "+91 ••••• ••310",
   yearsExperience: 5,
   /** SUMMARY block — author-supplied site copy, no longer verbatim from the resume PDF */
   summary:
